@@ -8,5 +8,10 @@ End If
 
 ' Запуск PowerShell GUI скрипта без консолі
 Set objShell = CreateObject("WScript.Shell")
-psCmd = "powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File ""D:\rename_folders\rename_folders.ps1"" """ & folderPath & """"
+Dim fso, scriptDir, ps1Path, psCmd
+Set fso = CreateObject("Scripting.FileSystemObject")
+scriptDir = fso.GetParentFolderName(WScript.ScriptFullName)
+ps1Path = scriptDir & "\rename_folders.ps1"
+
+psCmd = "powershell.exe -NoProfile -ExecutionPolicy Bypass -STA -File """ & ps1Path & """ """ & folderPath & """"
 objShell.Run psCmd, 0, False
